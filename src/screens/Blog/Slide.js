@@ -18,10 +18,23 @@ export default function Slide({ data }) {
                     source={{ uri: user.profile_pic }}
                     style={{ width: 30, height: 30, borderRadius: 500 }}
                 ></Image> */}
+
                 <Text style={{ fontSize: 14, paddingLeft: 10 }}>{ }</Text>
             </View>
             <Text style={{ fontSize: 24, paddingBottom: 10 }}>{data.btitle}</Text>
             <ScrollView>
+                {!!data.image && <Image
+                    style={{
+                        margin: 5,
+                        height: 200,
+                        width: 500,
+                        resizeMode: 'contain',
+                        alignSelf: "center"
+                    }}
+                    source={{
+                        uri: data.image,
+                    }}
+                />}
                 <Text style={{ fontSize: 18 }}>{data.bdetail}</Text>
             </ScrollView>
             {/* <Text style={{ fontSize: 18 }}> Uploded On {data.creation}</Text> */}

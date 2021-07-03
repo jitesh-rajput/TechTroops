@@ -29,7 +29,7 @@ export default function JobAlert({ navigation }) {
                     return (
                         <View
                             style={{
-                                width: windowWidth * 0.8, height: windowHeight * 0.2,
+                                width: windowWidth * 0.8, height: windowHeight * 0.3,
                                 backgroundColor: '#e8e8e8',
                                 padding: 5,
                                 borderRadius: 10,
@@ -44,9 +44,9 @@ export default function JobAlert({ navigation }) {
                                 <View style={{ felx: 0, flexDirection: "row" }}>
                                     <Image
                                         source={{ uri: item.image }}
-                                        style={{ width: 60, height: 60, borderRadius: 5, flex: 1 }}
+                                        style={{ width: 80, height: 100, borderRadius: 5, flex: 1 }}
                                     ></Image>
-                                    <Text style={{ fontSize: 24, padding: 10, flex: 2 }}>{item.title}</Text>
+                                    <Text style={{ fontSize: 24, padding: 10, flex: 2, width: 80 }}>{item.title}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>

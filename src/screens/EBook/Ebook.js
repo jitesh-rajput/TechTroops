@@ -2,9 +2,11 @@ import React, { Component, useEffect, useState } from 'react';
 import { Modal, NativeModules, Platform, StatusBar, SafeAreaView, StyleSheet, Text, View, Dimensions, Image, Button, ScrollView, FlatList, TouchableOpacity, Touchable } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import color from '../../constant/color';
-import * as openanything from 'react-native-openanything'
+import Pdf from 'react-native-pdf';
 import firebase from 'firebase';
-import SearchBook from './SearchBook';
+import { SearchBar } from 'react-native-elements';
+import { ShowPdf } from './ShowPdf';
+import * as Opensnything from 'react-native-openanything'
 const { StatusBarManager } = NativeModules;
 //const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
 const STATUSBAR_HEIGHT = 20
@@ -15,7 +17,6 @@ export default class Ebooks extends Component {
             .collectionGroup("EBooks")
             .get()
             .then((snapshot) => {
-                console.log(snapshot)
                 let books = snapshot.docs.map(doc => {
                     const data = doc.data();
                     const id = doc.id;
@@ -27,14 +28,31 @@ export default class Ebooks extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            books: []
+            books: [],
+            search: ""
         }
     }
     render() {
-        console.log(this.state.books)
         const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
+        const fetchBook = (search) => {
+            this.setState({ search: search })
+            firebase.firestore()
+                .collection('EBooks')
+                .where('bname', '>=', search)
+                .get()
+                .then((snapshot) => {
+                    let books = snapshot.docs.map(doc => {
+                        const data = doc.data();
+                        const id = doc.id;
+                        return { id, ...data }
+                    })
+                    this.setState({ books: books })
+                })
+        }
+
         function Slide({ data }) {
+            const source = { uri: data.book }
             return (
                 <View>
                     <View
@@ -55,7 +73,7 @@ export default class Ebooks extends Component {
                     </View>
                     <View style={{ flexDirection: "row", marginBottom: 20, alignSelf: "center" }}>
                         <TouchableOpacity
-                            onPress={() => openanything.Pdf(data.book)}
+                            onPress={() => ShowPdf(data.book)}
                             style={{
                                 backgroundColor: color.PRIMARY_COLOR, borderRadius: 5, height: 30, width: windowWidth * 0.7, alignSelf: "center"
                             }}
@@ -69,7 +87,11 @@ export default class Ebooks extends Component {
 
         return (
             <SafeAreaView>
-                <SearchBook></SearchBook>
+                <SearchBar
+                    placeholder="Search Book"
+                    onChangeText={(search) => { fetchBook(search) }}
+                    value={this.state.search}
+                />
                 <View style={{ position: "relative" }}>
                     <FlatList
                         data={this.state.books}

@@ -4,13 +4,16 @@ require('firebase/firestore')
 require('firebase/firebase-storage')
 
 export function UploadBlog(params) {
-    const { detail, navigation, title, website } = params;
+    console.log(params)
+    const { detail, navigation, profile, title, website } = params;
     firebase
         .firestore()
         .collection('Blogs')
         .add(
             {
                 user_id: firebase.auth().currentUser.uid,
+                uname: profile.username,
+                pic: profile.profile_pic,
                 btitle: title,
                 bdetail: detail,
                 bwebsite: website,

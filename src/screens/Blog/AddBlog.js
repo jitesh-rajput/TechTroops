@@ -3,6 +3,8 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View, Image, Button, TextInp
 import { Input } from '../../components/Input';
 import { FilledButton } from "../../components/FilledButton";
 import { UploadBlog } from "./UploadBlog";
+import { connect } from 'react-redux';
+
 class AddBlog extends React.Component {
     constructor(props) {
         super(props)
@@ -10,9 +12,9 @@ class AddBlog extends React.Component {
             title: '',
             detail: '',
             website: '',
-            navigation: this.props.navigation
+            navigation: this.props.navigation,
+            profile: this.props.profile
         }
-        console.log(this.props.navigation)
     }
 
     render() {
@@ -40,7 +42,6 @@ class AddBlog extends React.Component {
                         <Input
                             style={styles.input}
                             placeholder={'Website'}
-                            keyboardType={'website'}
                             value={this.state.website}
                             onChangeText={(website) => this.setState({ name: website })}
                         />
@@ -95,5 +96,8 @@ const styles = StyleSheet.create({
     }
 
 });
-
-export default AddBlog;
+const mapStateToProps = (store) => ({
+    profile: store.userState.currentUser,
+})
+export default connect(mapStateToProps, null)(AddBlog)
+// export defau;lt AddBlog

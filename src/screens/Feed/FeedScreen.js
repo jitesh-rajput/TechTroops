@@ -6,11 +6,12 @@ import Slide from './Slide';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { fetchPosts } from '../../redux/actions/index'
+import { fetchPosts, fetchUser } from '../../redux/actions/index'
 
 const STATUSBAR_HEIGHT = 20
 export class FeedScreen extends Component {
     componentDidMount() {
+        this.props.fetchUser()
         firebase.firestore()
             .collectionGroup("posts")
             .get()
@@ -55,9 +56,10 @@ export class FeedScreen extends Component {
     }
 }
 
-// const mapStateToProps = (store) => ({
-//     posts: store.userState.posts
-// })
-// const mapDispatchProps = (dispatch) => bindActionCreators({ fetchPosts }, dispatch);
-// export default connect(mapStateToProps, mapDispatchProps)(FeedScreen)
-export default FeedScreen
+const mapStateToProps = (store) => ({
+    posts: store.userState.posts,
+    profile: store.userState.profile
+})
+const mapDispatchProps = (dispatch) => bindActionCreators({ fetchPosts, fetchUser }, dispatch);
+export default connect(mapStateToProps, mapDispatchProps)(FeedScreen)
+// export default FeedScreen

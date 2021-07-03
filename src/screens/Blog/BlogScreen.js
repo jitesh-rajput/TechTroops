@@ -44,7 +44,7 @@ export default class BlogScreen extends React.Component {
             showsHorizontalScrollIndicator={false}
           />
 
-          <TouchableOpacity onPress={() => props.navigation.navigate('Add Blog')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Add Blog')}>
             <MaterialCommunityIcons style={{ flexDirection: "row", alignSelf: "flex-end", fontSize: 50 }} name="plus-circle" size={26} />
           </TouchableOpacity>
         </View>
