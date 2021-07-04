@@ -7,9 +7,14 @@ import JobAlert from "./JobAlert";
 import OppAlert from "./OppAlert";
 import JobDetail from "./JobDetail";
 import OppDetail from "./OppDetail";
+import Internship from "./Internship";
+
 const TopTabs = createMaterialTopTabNavigator();
 const JobScreenTab = createStackNavigator();
 const OppScreenTab = createStackNavigator();
+const IntScreenTab = createStackNavigator();
+
+
 const AlertRoute = ({ navigation }) => (
     <TopTabs.Navigator screenOptions={{
         headerStyle: {
@@ -23,6 +28,8 @@ const AlertRoute = ({ navigation }) => (
         <TopTabs.Screen name="Job" component={JobRoute}
         />
         <TopTabs.Screen name="Opportunity" component={ComRoute}
+        />
+        <TopTabs.Screen name="Internship" component={IntRoute}
         />
     </TopTabs.Navigator>
 );
@@ -41,4 +48,11 @@ const ComRoute = ({ navigation }) => (
         <OppScreenTab.Screen name="Opp Alert" component={OppAlert} options={{ headerShown: false }} />
         <OppScreenTab.Screen name="Opp Detail" component={OppDetail} options={{ headerShown: false }} />
     </OppScreenTab.Navigator>
+)
+
+const IntRoute = ({ navigation }) => (
+    <IntScreenTab.Navigator initialRouteName="Opp Alert">
+        <IntScreenTab.Screen name="Opp Alert" component={Internship} options={{ headerShown: false }} />
+        <IntScreenTab.Screen name="Opp Detail" component={OppDetail} options={{ headerShown: false }} />
+    </IntScreenTab.Navigator>
 )

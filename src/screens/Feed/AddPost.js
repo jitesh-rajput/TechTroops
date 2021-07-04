@@ -6,7 +6,6 @@ import * as ImagePicker from 'expo-image-picker';
 import color from "../../constant/color";
 import { Error } from '../../components/Error';
 import { UploadPost } from "./UploadPost";
-import { connect } from 'react-redux';
 class AddPost extends Component {
     componentDidMount() {
         (async () => {
@@ -82,10 +81,7 @@ class AddPost extends Component {
     }
 };
 
-const mapStateToProps = (store) => ({
-    profile: store.userState.currentUser,
-})
-export default connect(mapStateToProps, null)(AddPost)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -108,3 +104,4 @@ const styles = StyleSheet.create({
         width: 500,
     }
 });
+export default AddPost

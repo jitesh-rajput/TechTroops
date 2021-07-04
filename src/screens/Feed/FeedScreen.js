@@ -42,6 +42,11 @@ export class FeedScreen extends Component {
                             ADD POST
                         </Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
+                        <Text>
+                            SEARCH USER
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <FlatList
                     data={this.state.post}

@@ -3,9 +3,9 @@ import { Modal, NativeModules, Platform, StatusBar, SafeAreaView, StyleSheet, Te
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 const STATUSBAR_HEIGHT = 20
 import Slide from './Slide';
-import firebase from 'firebase'
+import firebase from 'firebase';
 
-export default class JobAlert extends Component {
+export default class Internship extends Component {
     componentDidMount() {
         firebase.firestore()
             .collectionGroup("jobs")
@@ -33,7 +33,7 @@ export default class JobAlert extends Component {
         return (
             <SafeAreaView>
                 <View style={{ height: windowHeight * 0.10, paddingTop: STATUSBAR_HEIGHT }}>
-                    <Text style={{ fontSize: 30, alignSelf: "center" }}>JOB</Text>
+                    <Text style={{ fontSize: 30, alignSelf: "center" }}>Internships</Text>
                 </View>
 
                 <FlatList
@@ -53,9 +53,9 @@ export default class JobAlert extends Component {
                                     alignSelf: "center"
                                 }}
                             >
-                                <TouchableOpacity onPress={() => navigation.navigate("Job Detail")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Opp Detail")}>
                                     <View>
-                                        <Text style={{ fontSize: 24, paddingBottom: 10 }}>{item.jtitle}</Text>
+                                        <Text style={{ fontSize: 24, paddingBottom: 10 }}>{item.ititle}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
