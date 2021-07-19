@@ -8,21 +8,21 @@ import firebase from 'firebase';
 export default class Internship extends Component {
     componentDidMount() {
         firebase.firestore()
-            .collectionGroup("jobs")
+            .collectionGroup("internship")
             .get()
             .then((snapshot) => {
-                let jobs = snapshot.docs.map(doc => {
+                let internship = snapshot.docs.map(doc => {
                     const data = doc.data();
                     const id = doc.id;
                     return { id, ...data }
                 })
-                this.setState({ jobs: jobs })
+                this.setState({ internship: internship })
             })
     }
     constructor(props) {
         super(props)
         this.state = {
-            jobs: []
+            internship: []
         }
     }
     render() {
@@ -37,7 +37,7 @@ export default class Internship extends Component {
                 </View>
 
                 <FlatList
-                    data={this.state.jobs}
+                    data={this.state.internship}
                     style={{ width: windowWidth * 0.9, height: windowHeight * 0.85, alignSelf: "center" }}
                     renderItem={({ item }) => {
                         return (
@@ -53,7 +53,7 @@ export default class Internship extends Component {
                                     alignSelf: "center"
                                 }}
                             >
-                                <TouchableOpacity onPress={() => navigation.navigate("Opp Detail")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Int Detail", { uid: item.id })}>
                                     <View>
                                         <Text style={{ fontSize: 24, paddingBottom: 10 }}>{item.ititle}</Text>
                                     </View>

@@ -19,7 +19,7 @@ const FeedRoute = ({ navigation }) => (
         <FeedTab.Screen name="Home" component={FeedScreen} options={{
             title: 'TechTroops',
             headerLeft: () => (
-                <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()} />
+                <Icon.Button name="home" size={25} backgroundColor="#009387" />
             )
         }} />
         <FeedTab.Screen name="Add Post" component={AddPost} />

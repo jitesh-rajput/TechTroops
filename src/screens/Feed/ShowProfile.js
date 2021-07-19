@@ -59,13 +59,22 @@ class ShowProfile extends Component {
         console.log(this.props.route.params.uid)
         const { width: windowWidth, height: windowHeight } = Dimensions.get("window")
 
+        this.props.following.map(data => {
+            console.log(data, "=", this.props.route.params.uid)
+            if (data.id === this.props.route.params.uid) {
+                console.log("....................}}}}}}}}}}}}}}}}}}}}}")
+                this.setState({ following: true })
+            }
+        })
+
         const onfollow = () => {
             firebase.firestore()
                 .collection("following")
                 .doc(firebase.auth().currentUser.uid)
                 .collection("userFollowing")
                 .doc(this.props.route.params.uid)
-                .set({})
+                .set({
+                })
         }
         const onunfollow = () => {
             firebase.firestore()
@@ -125,23 +134,12 @@ class ShowProfile extends Component {
                                 borderRightColor: '#dddddd',
                                 borderRightWidth: 1
                             }]}>
-                                <Title>140</Title>
-                                <Caption>Followers</Caption>
-                            </View>
-                            <View style={[styles.infoBox, {
-                                borderRightColor: '#dddddd',
-                                borderRightWidth: 1
-                            }]}>
-                                <Title>12</Title>
-                                <Caption>Following</Caption>
-                            </View>
-                            <View style={styles.infoBox}>
                                 {this.state.following ?
-                                    <Button title="Following"
-                                        onPress={() => onUnfollow()}
+                                    <Button title="Friends"
+                                        onPress={() => onunfollow()}
                                     />
                                     :
-                                    <Button title="Follow"
+                                    <Button title="Add Friend"
                                         onPress={() => onfollow()}
                                     />
                                 }
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
         height: 70,
     },
     infoBox: {
-        width: '30%',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },

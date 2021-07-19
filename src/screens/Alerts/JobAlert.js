@@ -53,7 +53,7 @@ export default class JobAlert extends Component {
                                     alignSelf: "center"
                                 }}
                             >
-                                <TouchableOpacity onPress={() => navigation.navigate("Job Detail")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Job Detail", { uid: item.id })}>
                                     <View>
                                         <Text style={{ fontSize: 24, paddingBottom: 10 }}>{item.jtitle}</Text>
                                     </View>

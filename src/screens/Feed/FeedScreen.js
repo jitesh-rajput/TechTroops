@@ -13,16 +13,16 @@ export class FeedScreen extends Component {
     componentDidMount() {
         this.props.fetchUser()
         firebase.firestore()
-            .collectionGroup("posts")
-            .get()
-            .then((snapshot) => {
-                let posts = snapshot.docs.map(doc => {
+            .collection("posts")
+            .onSnapshot((snapshot) => {
+                let allpost = snapshot.docs.map(doc => {
                     const data = doc.data();
                     const id = doc.id;
                     return { id, ...data }
                 })
-                this.setState({ post: posts })
+                this.setState({ post: allpost })
             })
+
     }
     constructor(props) {
         super(props)
@@ -36,16 +36,12 @@ export class FeedScreen extends Component {
 
         return (
             <SafeAreaView>
-                <View style={{ height: windowHeight * 0.10, paddingTop: STATUSBAR_HEIGHT }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-around", height: windowHeight * 0.10, paddingTop: STATUSBAR_HEIGHT }}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate("Add Post")}>
-                        <Text>
-                            ADD POST
-                        </Text>
+                        <Icon name="plus-box-multiple" size={25} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
-                        <Text>
-                            SEARCH USER
-                        </Text>
+                        <Icon name="magnify" size={25} />
                     </TouchableOpacity>
                 </View>
                 <FlatList
@@ -62,8 +58,9 @@ export class FeedScreen extends Component {
 }
 
 const mapStateToProps = (store) => ({
-    posts: store.userState.posts,
-    profile: store.userState.profile
+    post: store.userState.post,
+    profile: store.userState.profile,
+    allpost: store.userState.allpost
 })
 const mapDispatchProps = (dispatch) => bindActionCreators({ fetchPosts, fetchUser }, dispatch);
 export default connect(mapStateToProps, mapDispatchProps)(FeedScreen)

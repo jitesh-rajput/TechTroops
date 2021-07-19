@@ -1,13 +1,12 @@
 import firebase from "firebase"
-import { USER_STATE_CHANGE, USER_POST_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE } from "../constants/index"
+import { USER_STATE_CHANGE, USER_POST_STATE_CHANGE, USER_FOLLOWING_STATE_CHANGE, POSTS_STATE_CHANGE } from "../constants/index"
 
 export function fetchUser() {
     return ((dispatch) => {
         firebase.firestore()
             .collection("users")
             .doc(firebase.auth().currentUser.uid)
-            .get()
-            .then((snapshot) => {
+            .onSnapshot((snapshot) => {
                 if (snapshot.exists) {
                     console.log("Snap shot data", snapshot.data())
                     dispatch({ type: USER_STATE_CHANGE, currentUser: snapshot.data() })
@@ -24,8 +23,7 @@ export function fetchUserPosts() {
         firebase.firestore()
             .collection('posts')
             .where('user_id', '==', firebase.auth().currentUser.uid)
-            .get()
-            .then((snapshot) => {
+            .onSnapshot((snapshot) => {
                 let posts = snapshot.docs.map(doc => {
                     const data = doc.data();
                     const id = doc.id;
@@ -40,15 +38,14 @@ export function fetchUserPosts() {
 export function fetchPosts() {
     return ((dispatch) => {
         firebase.firestore()
-            .collectionGroup("posts")
-            .get()
-            .then((snapshot) => {
-                let posts = snapshot.docs.map(doc => {
+            .collection("posts")
+            .onSnapshot((snapshot) => {
+                let allpost = snapshot.docs.map(doc => {
                     const data = doc.data();
                     const id = doc.id;
                     return { id, ...data }
                 })
-                console.log(posts)
+                dispatch({ type: POSTS_STATE_CHANGE, allpost })
             })
     })
 }
@@ -56,16 +53,16 @@ export function fetchPosts() {
 export function fetchUserFollowing() {
     return ((dispatch) => {
         firebase.firestore()
-            .collectionGroup("following")
-            .doc(firebase.firestore().currentUser.uid)
+            .collection("following")
+            .doc(firebase.auth().currentUser.uid)
             .collection("userFollowing")
             .onSnapshot((snapshot) => {
-                console.log(snapshot)
                 let following = snapshot.docs.map(doc => {
+                    console.log("---------------------------------------", doc.id)
                     const id = doc.id;
                     return id
                 })
-                dispatch({ type: USER_FOLLOWING_STATE_CHANGE, id })
+                dispatch({ type: USER_FOLLOWING_STATE_CHANGE, following })
             })
     }
     )

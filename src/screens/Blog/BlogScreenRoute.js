@@ -19,7 +19,7 @@ const BlogScreenRoute = ({ navigation }) => (
         <BlogScreenTab.Screen name="Home" component={BlogScreen} options={{
             title: 'Blogs',
             headerLeft: () => (
-                <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+                <Icon.Button name="book" size={25} backgroundColor="#009387"></Icon.Button>
             )
         }} />
         <BlogScreenTab.Screen name="Add Blog" component={AddBlog} />

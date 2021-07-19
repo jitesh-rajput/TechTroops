@@ -42,7 +42,6 @@ class EditProfile extends React.Component {
                         <Input
                             style={styles.input}
                             placeholder={'Username'}
-                            keyboardType={'user-name'}
                             value={this.state.username}
                             onChangeText={(username) => this.setState({ username: username })}
                         />
@@ -61,7 +60,6 @@ class EditProfile extends React.Component {
                         <Input
                             style={styles.input}
                             placeholder={'Website'}
-                            keyboardType={'website'}
                             value={this.state.website}
                             onChangeText={(website) => this.setState({ name: website })}
                         />

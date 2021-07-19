@@ -8,6 +8,7 @@ import OppAlert from "./OppAlert";
 import JobDetail from "./JobDetail";
 import OppDetail from "./OppDetail";
 import Internship from "./Internship";
+import IntDetail from "./IntDetail";
 
 const TopTabs = createMaterialTopTabNavigator();
 const JobScreenTab = createStackNavigator();
@@ -27,7 +28,7 @@ const AlertRoute = ({ navigation }) => (
     }} style={{ marginTop: 30 }}>
         <TopTabs.Screen name="Job" component={JobRoute}
         />
-        <TopTabs.Screen name="Opportunity" component={ComRoute}
+        <TopTabs.Screen name="Compitition" component={ComRoute}
         />
         <TopTabs.Screen name="Internship" component={IntRoute}
         />
@@ -53,6 +54,6 @@ const ComRoute = ({ navigation }) => (
 const IntRoute = ({ navigation }) => (
     <IntScreenTab.Navigator initialRouteName="Opp Alert">
         <IntScreenTab.Screen name="Opp Alert" component={Internship} options={{ headerShown: false }} />
-        <IntScreenTab.Screen name="Opp Detail" component={OppDetail} options={{ headerShown: false }} />
+        <IntScreenTab.Screen name="Int Detail" component={IntDetail} options={{ headerShown: false }} />
     </IntScreenTab.Navigator>
 )

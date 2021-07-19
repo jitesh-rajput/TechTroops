@@ -18,7 +18,7 @@ const EbooksRoute = ({ navigation }) => (
         <EbookScreenTab.Screen name="Ebooks" component={Ebooks} options={{
             title: 'E-Books',
             headerLeft: () => (
-                <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+                <Icon.Button name="book" size={25} backgroundColor="#009387"></Icon.Button>
             )
         }} />
     </EbookScreenTab.Navigator>

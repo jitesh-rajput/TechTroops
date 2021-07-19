@@ -10,7 +10,7 @@ export default function Slide({ data }) {
     return (
         <View
             style={{
-                width: windowWidth * 0.8, height: windowHeight * 0.6,
+                width: windowWidth * 0.8, height: windowHeight * 0.4,
                 backgroundColor: '#e8e8e8',
                 padding: 5,
                 borderRadius: 10,
@@ -24,7 +24,7 @@ export default function Slide({ data }) {
             <View style={{ flexDirection: "column" }}>
                 <View style={{ padding: 5, flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "black" }}>
                     <Image
-                        source={{ uri: data.dp }}
+                        source={{ uri: data.profile_pic }}
                         style={{ width: 30, height: 30, borderRadius: 500 }}
                     ></Image>
                     <Text style={{ fontSize: 14, paddingLeft: 10 }}>{data.username}</Text>
@@ -34,10 +34,6 @@ export default function Slide({ data }) {
                     style={{ width: '100%', height: '70%', borderRadius: 5 }}
                 ></Image>
                 <Text style={{ fontSize: 14, padding: 10 }}>{data.caption}</Text>
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                <Icon name="thumb-up" color={color.PRIMARY_COLOR} size={25} />
-                <Icon name="comment-text-multiple" color={color.PRIMARY_COLOR} size={25} />
             </View>
         </View>
     );

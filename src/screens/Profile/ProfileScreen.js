@@ -1,13 +1,12 @@
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import React, { Component, useEffect } from 'react';
-import { View, SafeAreaView, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import { View, SafeAreaView, StyleSheet, Dimensions, TouchableOpacity, FlatList, Button } from 'react-native';
 import {
     Avatar,
     Title,
     Caption,
     Text,
     TouchableRipple,
-    Button,
 } from 'react-native-paper';
 import { Loading } from '../../components/Loding';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -15,7 +14,7 @@ import color from '../../constant/color';
 import Slide from './Slide';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { fetchUser, fetchUserPosts } from '../../redux/actions/index'
+import { fetchUser, fetchUserPosts, fetchUserFollowing } from '../../redux/actions/index'
 class ProfileScreen extends Component {
     componentDidMount() {
         // this.timer = setInterval(() => this.props.fetchUser(), 5000)
@@ -23,9 +22,15 @@ class ProfileScreen extends Component {
         this.props.fetchUserPosts()
     }
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            following_count: 0,
+            following: this.props.following
+        }
+    }
     render() {
         const { width: windowWidth, height: windowHeight } = Dimensions.get("window")
-
         if (this.props.profile == undefined || this.props.posts == undefined) {
             return (
                 <View>
@@ -34,9 +39,8 @@ class ProfileScreen extends Component {
             )
         }
         else {
-            console.log(this.props)
             const { bio, email, name, profile_pic, username, website } = this.props.profile;
-            console.log(bio, email, name, profile_pic, username, website);
+
             return (
                 <SafeAreaView style={styles.container}>
                     <View style={styles.userInfoSection}>
@@ -87,12 +91,11 @@ class ProfileScreen extends Component {
                             borderRightColor: '#dddddd',
                             borderRightWidth: 1
                         }]}>
-                            <Title>140</Title>
-                            <Caption>Followers</Caption>
-                        </View>
-                        <View style={styles.infoBox}>
-                            <Title>12</Title>
-                            <Caption>Following</Caption>
+                            {this.props.following === undefined ?
+                                <Title>0</Title> :
+                                <Title>{this.state.following_count}</Title>
+                            }
+                            <Caption>Friends</Caption>
                         </View>
                     </View>
 
@@ -113,9 +116,10 @@ class ProfileScreen extends Component {
 
 const mapStateToProps = (store) => ({
     profile: store.userState.currentUser,
-    posts: store.userState.posts
+    posts: store.userState.posts,
+    following: store.userState.following
 })
-const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, fetchUserPosts }, dispatch);
+const mapDispatchProps = (dispatch) => bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing }, dispatch);
 export default connect(mapStateToProps, mapDispatchProps)(ProfileScreen)
 
 
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
         height: 70,
     },
     infoBox: {
-        width: '50%',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -53,7 +53,7 @@ export default class OppAlert extends Component {
                                     alignSelf: "center"
                                 }}
                             >
-                                <TouchableOpacity onPress={() => navigation.navigate("Opp Detail")}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate("Opp Detail", { uid: item.id })}>
                                     <View>
                                         <Text style={{ fontSize: 24, paddingBottom: 10 }}>{item.ctitle}</Text>
                                     </View>
